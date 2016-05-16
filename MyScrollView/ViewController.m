@@ -17,7 +17,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    [self setUpViews];
+
+    
+    
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    CGRect newBounds = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+    self.view.bounds = newBounds;
+    
+}
+
+- (void)setUpViews {
+    
+    MyScrollView *scrollView = [[MyScrollView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+    
+    scrollView.backgroundColor = [UIColor orangeColor];
+    [scrollView setUpSubviews];
+    
+    [self.view addSubview:scrollView];
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
