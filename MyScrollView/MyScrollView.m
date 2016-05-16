@@ -54,21 +54,41 @@
 
 - (void)moveView:(UIPanGestureRecognizer *)pan {
     
+    CGRect newBounds = self.bounds;
+    
     if (pan.state == UIGestureRecognizerStateBegan) {
         self.startPoint = self.bounds.origin;
     }
     
     CGPoint newPoint = [pan translationInView:self];
-    CGRect newBounds = CGRectMake(self.startPoint.x-newPoint.x, self.startPoint.y-newPoint.y, self.bounds.size.width, self.bounds.size.height);
-   
-    if (newBounds.origin.y + self.frame.size.height <= self.contentSize.height && newBounds.origin.y > self.frame.origin.y){
+    
+    newBounds.origin.x = self.startPoint.x - newPoint.x;
+    newBounds.origin.y = self.startPoint.y - newPoint.y;
+    
+    
+    if (newBounds.origin.x < self.frame.origin.x) {
         
-        if (newBounds.origin.x + self.frame.size.width <= self.contentSize.width && newBounds.origin.x > self.frame.origin.x){
-            self.bounds = newBounds;
-        }
-        
+        newBounds.origin.x = self.frame.origin.x;
         
     }
+    
+    if (newBounds.origin.x + self.frame.size.width > self.contentSize.width) {
+        
+        newBounds.origin.x = self.contentSize.width - self.frame.size.width;
+        
+    }
+    if (newBounds.origin.y < self.frame.origin.y) {
+        
+        newBounds.origin.y = self.frame.origin.y;
+        
+    }
+    
+    if (newBounds.origin.y + self.frame.size.height > self.contentSize.height) {
+        
+        newBounds.origin.y = self.contentSize.height - self.frame.size.height;
+    }
+    
+    self.bounds = newBounds;
 
 //    NSLog(@"x: %f, y: %f", -newPoint.x, -newPoint.y);
 //    NSLog(@"x: %f, y: %f", self.bounds.origin.x, self.bounds.origin.y);

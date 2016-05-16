@@ -15,6 +15,7 @@
 @property CGSize contentSize;
 @property CGPoint startPoint;
 
+
 - (void)setUpSubviews;
 
 @end
